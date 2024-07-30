@@ -3,3 +3,5 @@ TRaNS
 *.debug
 *.layout
 *.o
+*_private.h
+*_private.rc
