@@ -55,3 +55,9 @@ public:
     double operator()(const std::vector<double>& values) const;
 };
 
+class HillRR : public Hill2
+{
+public:
+    double operator()(const std::vector<double>& values) const;
+};
+

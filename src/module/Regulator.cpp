@@ -105,3 +105,10 @@ double HillAR::operator()(const std::vector<double>& values) const
     return min + max * A / (1.0 + A + R);
 }
 
+double HillRR::operator()(const std::vector<double>& values) const
+{
+    double R1 = values[0] > 0 ? std::pow(values[0] / K1, n1) : 0;
+    double R2 = values[1] > 0 ? std::pow(values[1] / K2, n2) : 0;
+    return min + max / (1.0 + R1 + R2);
+}
+

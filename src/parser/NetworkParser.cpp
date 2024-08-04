@@ -55,6 +55,12 @@ Network NetworkParser::parseFile(const std::string& topologyFile,
                     sourceIndexes[1] = indexes1[0];
                     regulator = new HillAR;
                 }
+                else if (indexes2.size() == 2)
+                {
+                    sourceIndexes[0] = indexes1[0];
+                    sourceIndexes[1] = indexes1[1];
+                    regulator = new HillRR;
+                }
                 break;
             }
             default:;
