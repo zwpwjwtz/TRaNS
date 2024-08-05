@@ -1,6 +1,7 @@
 #include "NetworkParser.h"
 #include "TopologyParser.h"
 #include "ParameterParser.h"
+#include "../module/constant.h"
 
 
 Network NetworkParser::parseFile(const std::string& topologyFile, 
@@ -11,14 +12,17 @@ Network NetworkParser::parseFile(const std::string& topologyFile,
                             NetworkParameterParser::parseFile(parameterFile);
     
     size_t i, j;
+    bool valid;
+    int targetIndex;
+    std::vector<int> sourceIndexes;
     Regulator* regulator;
     Network network(topology.size());
     for (i=0; i<parameterGroups.size(); i++)
     {
-        std::vector<int> sourceIndexes = parameterGroups[i].first.first;
-        int targetIndex = parameterGroups[i].first.second;
+        sourceIndexes = parameterGroups[i].first.first;
+        targetIndex = parameterGroups[i].first.second;
         
-        bool valid = true;
+        valid = true;
         for (j=0; j<sourceIndexes.size(); j++)
             if (topology[targetIndex][sourceIndexes[j]] == 0)
             {
@@ -35,7 +39,10 @@ Network NetworkParser::parseFile(const std::string& topologyFile,
                 regulator = new ConstantRegulator;
                 break;
             case 1:
-                if (topology[targetIndex][sourceIndexes[0]] < 0)
+                if (topology[targetIndex][sourceIndexes[0]] == 
+                    TRANS_NETWORK_REGULATION_LINEAR)
+                    regulator = new LinearRegulator;
+                else if (topology[targetIndex][sourceIndexes[0]] < 0)
                     regulator = new HillR;
                 else
                     regulator = new HillA;
@@ -44,15 +51,15 @@ Network NetworkParser::parseFile(const std::string& topologyFile,
             {
                 std::vector<int> indexes1, indexes2;
                 for (j=0; j<sourceIndexes.size(); j++)
-                    if (sourceIndexes[j] > 0)
-                        indexes1.push_back(j);
+                    if (topology[targetIndex][sourceIndexes[j]] > 0)
+                        indexes1.push_back(sourceIndexes[j]);
                 for (j=0; j<sourceIndexes.size(); j++)
-                    if (sourceIndexes[j] < 0)
-                        indexes2.push_back(j);
+                    if (topology[targetIndex][sourceIndexes[j]] < 0)
+                        indexes2.push_back(sourceIndexes[j]);
                 if (indexes1.size() > 0 && indexes2.size() > 0)
                 {
                     sourceIndexes[0] = indexes1[0];
-                    sourceIndexes[1] = indexes1[0];
+                    sourceIndexes[1] = indexes2[0];
                     regulator = new HillAR;
                 }
                 else if (indexes2.size() == 2)

@@ -3,9 +3,9 @@
 
 CPP      = g++
 CC       = gcc
-OBJ      = module/Network.o parser/NetworkParser.o main.o parser/TopologyParser.o parser/MainArgumentParser.o parser/VariableParser.o parser/ParameterParser.o module/Regulator.o
-LINKOBJ  = module/Network.o parser/NetworkParser.o main.o parser/TopologyParser.o parser/MainArgumentParser.o parser/VariableParser.o parser/ParameterParser.o module/Regulator.o
-CLEANOBJ  =  module/Network.o parser/NetworkParser.o main.o parser/TopologyParser.o parser/MainArgumentParser.o parser/VariableParser.o parser/ParameterParser.o module/Regulator.o TRaNS
+OBJ      = main.o parser/VariableParser.o module/Regulator.o module/Network.o parser/MainArgumentParser.o parser/ParameterParser.o parser/TopologyParser.o parser/NetworkParser.o
+LINKOBJ  = main.o parser/VariableParser.o module/Regulator.o module/Network.o parser/MainArgumentParser.o parser/ParameterParser.o parser/TopologyParser.o parser/NetworkParser.o
+CLEANOBJ  =  main.o parser/VariableParser.o module/Regulator.o module/Network.o parser/MainArgumentParser.o parser/ParameterParser.o parser/TopologyParser.o parser/NetworkParser.o TRaNS
 LIBS     = 
 INCS     =  
 CXXINCS  =  
@@ -24,26 +24,26 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-module/Network.o: module/Network.cpp module/Network.h module/Regulator.h
-	$(CPP) -c module/Network.cpp -o module/Network.o $(CXXFLAGS) 
-
-parser/NetworkParser.o: parser/NetworkParser.cpp parser/ParameterParser.h parser/NetworkParser.h module/Network.h module/Regulator.h parser/TopologyParser.h
-	$(CPP) -c parser/NetworkParser.cpp -o parser/NetworkParser.o $(CXXFLAGS) 
-
-main.o: main.cpp parser/NetworkParser.h parser/VariableParser.h parser/MainArgumentParser.h module/Network.h module/Regulator.h
+main.o: main.cpp module/Regulator.h parser/VariableParser.h parser/NetworkParser.h module/Network.h parser/MainArgumentParser.h
 	$(CPP) -c main.cpp -o main.o $(CXXFLAGS) 
-
-parser/TopologyParser.o: parser/TopologyParser.cpp parser/TopologyParser.h
-	$(CPP) -c parser/TopologyParser.cpp -o parser/TopologyParser.o $(CXXFLAGS) 
-
-parser/MainArgumentParser.o: parser/MainArgumentParser.cpp parser/MainArgumentParser.h
-	$(CPP) -c parser/MainArgumentParser.cpp -o parser/MainArgumentParser.o $(CXXFLAGS) 
 
 parser/VariableParser.o: parser/VariableParser.cpp parser/VariableParser.h
 	$(CPP) -c parser/VariableParser.cpp -o parser/VariableParser.o $(CXXFLAGS) 
 
+module/Regulator.o: module/Regulator.cpp module/Regulator.h
+	$(CPP) -c module/Regulator.cpp -o module/Regulator.o $(CXXFLAGS) 
+
+module/Network.o: module/Network.cpp module/constant.h module/Regulator.h module/Network.h
+	$(CPP) -c module/Network.cpp -o module/Network.o $(CXXFLAGS) 
+
+parser/MainArgumentParser.o: parser/MainArgumentParser.cpp parser/MainArgumentParser.h
+	$(CPP) -c parser/MainArgumentParser.cpp -o parser/MainArgumentParser.o $(CXXFLAGS) 
+
 parser/ParameterParser.o: parser/ParameterParser.cpp parser/ParameterParser.h
 	$(CPP) -c parser/ParameterParser.cpp -o parser/ParameterParser.o $(CXXFLAGS) 
 
-module/Regulator.o: module/Regulator.cpp module/Regulator.h
-	$(CPP) -c module/Regulator.cpp -o module/Regulator.o $(CXXFLAGS) 
+parser/TopologyParser.o: parser/TopologyParser.cpp module/constant.h parser/TopologyParser.h
+	$(CPP) -c parser/TopologyParser.cpp -o parser/TopologyParser.o $(CXXFLAGS) 
+
+parser/NetworkParser.o: parser/NetworkParser.cpp module/constant.h module/Regulator.h parser/NetworkParser.h module/Network.h parser/TopologyParser.h parser/ParameterParser.h
+	$(CPP) -c parser/NetworkParser.cpp -o parser/NetworkParser.o $(CXXFLAGS) 

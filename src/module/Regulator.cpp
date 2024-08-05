@@ -23,12 +23,30 @@ unsigned int ConstantRegulator::parameterCount()
 void ConstantRegulator::setParameter(int index, double value)
 {
     if (index == 0)
-        constant = constant;
+        constant = value;
 }
 
 double ConstantRegulator::operator()(const std::vector<double>& values) const
 {
     return constant;
+}
+
+unsigned int LinearRegulator::parameterCount()
+{
+    return 2;
+}
+
+void LinearRegulator::setParameter(int index, double value)
+{
+    if (index == 0)
+        intercept = value;
+    else if (index == 1)
+        slope = value;
+}
+
+double LinearRegulator::operator()(const std::vector<double>& values) const
+{
+    return intercept + values[0] * slope;
 }
 
 unsigned int Hill::parameterCount()

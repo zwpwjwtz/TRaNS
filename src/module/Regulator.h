@@ -1,7 +1,5 @@
 #include <vector>
 
-#define REGULATOR_MAX_INPUT    2
-
 
 class Regulator
 {
@@ -16,6 +14,15 @@ class ConstantRegulator : public Regulator
 {
 public:
     double constant;
+    unsigned int parameterCount();
+    void setParameter(int index, double value);
+    double operator()(const std::vector<double>& values) const;
+};
+
+class LinearRegulator : public Regulator
+{
+public:
+    double intercept, slope;
     unsigned int parameterCount();
     void setParameter(int index, double value);
     double operator()(const std::vector<double>& values) const;

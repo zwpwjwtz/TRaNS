@@ -1,6 +1,8 @@
 #include "TopologyParser.h"
+#include "../module/constant.h"
 #include <fstream>
 #include <sstream>
+#include <string>
 
 
 NetworkTopology NetworkTopologyParser::parseFile(const std::string& filename)
@@ -28,8 +30,12 @@ NetworkTopology NetworkTopologyParser::parseFile(const std::string& filename)
             bufferStream.str(buffer);
             tempTopology.clear();
             while (std::getline(bufferStream, buffer2, ','))
-                tempTopology.push_back(std::stoi(buffer2));
-            
+            {
+                if (buffer2.find("L") != buffer2.npos)
+                    tempTopology.push_back(TRANS_NETWORK_REGULATION_LINEAR);
+                else
+                    tempTopology.push_back(std::stoi(buffer2));
+            }
             if (tempTopology.size() > 0)
                 topology.push_back(tempTopology);
         }

@@ -1,0 +1,8 @@
+#ifndef CONSTANT_H
+#define CONSTANT_H
+
+#define TRANS_REGULATOR_MAX_INPUT    2
+
+#define TRANS_NETWORK_REGULATION_LINEAR    0x100
+
+#endif

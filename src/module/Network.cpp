@@ -1,4 +1,5 @@
 #include "Network.h"
+#include "constant.h"
 
 
 Network::Network(unsigned int nodeCount) : 
@@ -52,7 +53,7 @@ std::vector<double> Network::evolve(const std::vector<double>& values,
 void Network::dynamics(const std::vector<double>& values, 
                        std::vector<double>& results) const
 {
-    std::vector<double> inputs(REGULATOR_MAX_INPUT);
+    std::vector<double> inputs(TRANS_REGULATOR_MAX_INPUT);
     for (size_t i=0; i<results.size(); i++)
     {
         results[i] = -values[i];
