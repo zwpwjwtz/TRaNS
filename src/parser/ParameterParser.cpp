@@ -31,14 +31,15 @@ NetworkParameterParser::parseFile(const std::string& filename)
         targetIndex = std::stoi(buffer2);
         
         // Parse the indexes of source nodes
-        std::getline(bufferStream, buffer2, ';');
-        if (buffer2.size() == 0)
-            continue;
-        bufferStream2.clear();
-        bufferStream2.str(buffer2);
         sourceIndexes.clear();
-        while (std::getline(bufferStream2, buffer3, ','))
-            sourceIndexes.push_back(std::stoi(buffer3));
+        std::getline(bufferStream, buffer2, ';');
+        if (buffer2.size() > 0)
+        {
+            bufferStream2.clear();
+            bufferStream2.str(buffer2);
+            while (std::getline(bufferStream2, buffer3, ','))
+                sourceIndexes.push_back(std::stoi(buffer3));
+        }
         
         // Parse the parameters
         std::getline(bufferStream, buffer2);
