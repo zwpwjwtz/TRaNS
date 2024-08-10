@@ -17,6 +17,9 @@ public:
                           int targetIndex);
     std::vector<double> evolve(const std::vector<double>& values, 
                                double time) const;
+    std::vector<std::vector<double>> 
+    evolveMultiple(const std::vector<double>& values, double time, 
+                   int trajectoryCount) const;
     void dynamics(const std::vector<double>& values, 
                   std::vector<double>& results) const;
 };

@@ -28,7 +28,7 @@ GaussianNoiseGenerator::~GaussianNoiseGenerator()
 
 double GaussianNoiseGenerator::addNoise(double value)
 {
-    return value + std::max(value * (*distribution)(randomGenerator), 
+    return value + std::max(std::abs(value * (*distribution)(randomGenerator)),
                             minNoise);
 }
 

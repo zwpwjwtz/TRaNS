@@ -170,12 +170,12 @@ PyObject* PythonNetworkWrapper::evolve(PyObject* self, PyObject* args)
         return nullptr;
     
     Network* network = reinterpret_cast<Network*>(networkID);
-    size_t nodeCount = network->nodeCount;
+    int nodeCount = network->nodeCount;
     std::vector<double> values = PythonVectorParser::parseDoubles(valueList);
-    if (nodeCount > values.size())
+    if (nodeCount > int(values.size()))
         return Py_BuildValue("");
     
-    size_t i;
+    int i;
     std::vector<double> initialValues(nodeCount);
     for (i=0; i<nodeCount; i++)
         initialValues[i] = values[i];
@@ -184,6 +184,40 @@ PyObject* PythonNetworkWrapper::evolve(PyObject* self, PyObject* args)
     PyObject* result = PyList_New(0);
     for (i=0; i<nodeCount; i++)
         PyList_Append(result, PyFloat_FromDouble(targets[i]));
+    return result;
+}
+
+PyObject* PythonNetworkWrapper::evolveMultiple(PyObject* self, PyObject* args)
+{
+    unsigned long networkID;
+    PyObject* valueList;
+    double time;
+    int trajectoryCount;
+    if (!PyArg_ParseTuple(args, "kOdi", &networkID, 
+                          &valueList, &time, &trajectoryCount))
+        return nullptr;
+    
+    Network* network = reinterpret_cast<Network*>(networkID);
+    int nodeCount = network->nodeCount;
+    std::vector<double> values = PythonVectorParser::parseDoubles(valueList);
+    if (nodeCount > int(values.size()))
+        return Py_BuildValue("");
+    
+    int i, j;
+    std::vector<double> initialValues(nodeCount);
+    for (i=0; i<nodeCount; i++)
+        initialValues[i] = values[i];
+    std::vector<std::vector<double>> targets = 
+                network->evolveMultiple(initialValues, time, trajectoryCount);
+    
+    PyObject* result = PyList_New(0);
+    for (i=0; i<trajectoryCount; i++)
+    {
+        PyObject* tempList = PyList_New(0);
+        for (j=0; j<nodeCount; j++)
+            PyList_Append(tempList, PyFloat_FromDouble(targets[i][j]));
+        PyList_Append(result, tempList);
+    }
     return result;
 }
 

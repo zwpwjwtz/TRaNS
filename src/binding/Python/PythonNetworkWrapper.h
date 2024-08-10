@@ -17,6 +17,7 @@ public:
     static PyObject* setSeed(PyObject* self, PyObject* args);
     
     static PyObject* evolve(PyObject* self, PyObject* args);
+    static PyObject* evolveMultiple(PyObject* self, PyObject* args);
 };
 
 #endif

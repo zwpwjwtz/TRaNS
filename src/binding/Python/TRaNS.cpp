@@ -43,6 +43,11 @@ static PyMethodDef TRANS_python_methods[] =
      METH_VARARGS, 
      "Evolve the network within a given time span."}, 
     
+    {"evolveMultipleNetwork", 
+     PythonNetworkWrapper::evolveMultiple, 
+     METH_VARARGS, 
+     "Evolve the network in multiple trajectories within a given time span."}, 
+    
     {NULL, NULL, 0, NULL}
 };
 

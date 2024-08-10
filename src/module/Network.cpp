@@ -68,6 +68,42 @@ std::vector<double> Network::evolve(const std::vector<double>& values,
     return results;
 }
 
+std::vector<std::vector<double>> 
+Network::evolveMultiple(const std::vector<double>& values, double time, 
+                        int trajectoryCount) const
+{
+    int nodeCount = values.size();
+    std::vector<double> rates(nodeCount);
+    std::vector<std::vector<double>> results(trajectoryCount, values);
+    
+    int i, j, k = 0;
+    double maxRate;
+    std::vector<double> currentTimes(trajectoryCount, 0.0);
+    while (k < trajectoryCount)
+    {
+        for (i=0; i<trajectoryCount; i++)
+        {
+            if (currentTimes[i] >= time)
+                continue;
+            
+            dynamics(results[i], rates);
+            maxRate = 10.0;
+            for (j=0; j<nodeCount; j++)
+            {
+                if (rates[j] > maxRate)
+                    maxRate = rates[j];
+            }
+            for (j=0; j<nodeCount; j++)
+                results[i][j] = std::max(results[i][j] + rates[j] / maxRate, 
+                                         0.0);
+            currentTimes[i] += 1 / maxRate;
+            if (currentTimes[i] >= time)
+                k++;
+        }
+    }
+    return results;
+}
+
 void Network::dynamics(const std::vector<double>& values, 
                        std::vector<double>& results) const
 {
