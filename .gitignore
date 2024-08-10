@@ -4,5 +4,6 @@ output.txt
 *.debug
 *.layout
 *.o
+*.so
 *_private.h
 *_private.rc

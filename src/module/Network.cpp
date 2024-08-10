@@ -18,10 +18,28 @@ Network::~Network()
     }
 }
 
-void Network::setRegulation(const std::vector<int>& sourceIndexes, int target, 
-                            const Regulator* regulator)
+void Network::setRegulation(const std::vector<int>& sourceIndexes, 
+                            int targetIndex, const Regulator* regulator)
 {
-    regulations[target].push_back({sourceIndexes, regulator});
+    regulations[targetIndex].push_back({sourceIndexes, regulator});
+}
+
+void Network::removeRegulation(const std::vector<int>& sourceIndexes, 
+                               int targetIndex)
+{
+    if (size_t(targetIndex) < regulations.size())
+    {
+        for (auto i=regulations[targetIndex].begin(); 
+             i!=regulations[targetIndex].end(); i++)
+        {
+            if (i->first == sourceIndexes)
+            {
+                delete i->second;
+                regulations[targetIndex].erase(i);
+                break;
+            }
+        }
+    }
 }
 
 std::vector<double> Network::evolve(const std::vector<double>& values, 

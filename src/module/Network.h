@@ -11,8 +11,10 @@ public:
     
     Network(unsigned int nodeCount);
     ~Network();
-    void setRegulation(const std::vector<int>& sourceIndexes, int target, 
-                       const Regulator* regulator);
+    void setRegulation(const std::vector<int>& sourceIndexes, 
+                       int targetIndex, const Regulator* regulator);
+    void removeRegulation(const std::vector<int>& sourceIndexes, 
+                          int targetIndex);
     std::vector<double> evolve(const std::vector<double>& values, 
                                double time) const;
     void dynamics(const std::vector<double>& values, 

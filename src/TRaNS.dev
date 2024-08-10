@@ -1,7 +1,7 @@
 [Project]
 filename = TRaNS.dev
 name = TRaNS
-UnitCount = 16
+UnitCount = 24
 Type = 1
 Ver = 3
 Includes = 
@@ -64,110 +64,19 @@ SyncProduct = 1
 
 
 [Unit1]
-FileName = main.cpp
+FileName = module/RegulatorFactory.cpp
 CompileCpp = 1
-Folder = 源文件
+Folder = 源文件/module
 Compile = 1
 Link = 1
 Priority = 1000
 OverrideBuildCmd = 0
 BuildCmd = 
 FileEncoding = PROJECT
-RealEncoding = UTF-8
+RealEncoding = ASCII
 
 
 [Unit2]
-FileName = parser/VariableParser.cpp
-CompileCpp = 1
-Folder = 源文件/parser
-Compile = 1
-Link = 1
-Priority = 1000
-OverrideBuildCmd = 0
-BuildCmd = 
-FileEncoding = PROJECT
-RealEncoding = UTF-8
-
-
-[Unit3]
-FileName = module/Regulator.cpp
-CompileCpp = 1
-Folder = 源文件/module
-Compile = 1
-Link = 1
-Priority = 1000
-OverrideBuildCmd = 0
-BuildCmd = 
-FileEncoding = PROJECT
-RealEncoding = UTF-8
-
-
-[Unit4]
-FileName = module/constant.h
-CompileCpp = 0
-Folder = 头文件/module
-Compile = 0
-Link = 0
-Priority = 1000
-OverrideBuildCmd = 0
-BuildCmd = 
-FileEncoding = PROJECT
-RealEncoding = ASCII
-
-
-[Unit5]
-FileName = module/Network.cpp
-CompileCpp = 1
-Folder = 源文件/module
-Compile = 1
-Link = 1
-Priority = 1000
-OverrideBuildCmd = 0
-BuildCmd = 
-FileEncoding = PROJECT
-RealEncoding = UTF-8
-
-
-[Unit6]
-FileName = parser/MainArgumentParser.cpp
-CompileCpp = 1
-Folder = 源文件/parser
-Compile = 1
-Link = 1
-Priority = 1000
-OverrideBuildCmd = 0
-BuildCmd = 
-FileEncoding = PROJECT
-RealEncoding = UTF-8
-
-
-[Unit7]
-FileName = module/Regulator.h
-CompileCpp = 0
-Folder = 头文件/module
-Compile = 0
-Link = 0
-Priority = 1000
-OverrideBuildCmd = 0
-BuildCmd = 
-FileEncoding = PROJECT
-RealEncoding = UTF-8
-
-
-[Unit8]
-FileName = parser/VariableParser.h
-CompileCpp = 0
-Folder = 头文件/parser
-Compile = 0
-Link = 0
-Priority = 1000
-OverrideBuildCmd = 0
-BuildCmd = 
-FileEncoding = PROJECT
-RealEncoding = ASCII
-
-
-[Unit9]
 FileName = parser/NetworkParser.h
 CompileCpp = 0
 Folder = 头文件/parser
@@ -180,10 +89,10 @@ FileEncoding = PROJECT
 RealEncoding = UTF-8
 
 
-[Unit10]
-FileName = module/Network.h
+[Unit3]
+FileName = parser/VariableParser.h
 CompileCpp = 0
-Folder = 头文件/module
+Folder = 头文件/parser
 Compile = 0
 Link = 0
 Priority = 1000
@@ -193,59 +102,33 @@ FileEncoding = PROJECT
 RealEncoding = ASCII
 
 
-[Unit11]
-FileName = parser/TopologyParser.h
+[Unit4]
+FileName = binding/Python/PythonVectorParser.h
 CompileCpp = 0
-Folder = 头文件/parser
+Folder = 头文件/binding/Python
 Compile = 0
 Link = 0
 Priority = 1000
 OverrideBuildCmd = 0
 BuildCmd = 
 FileEncoding = PROJECT
-RealEncoding = UTF-8
+RealEncoding = ASCII
 
 
-[Unit12]
-FileName = parser/ParameterParser.cpp
+[Unit5]
+FileName = module/Regulator.cpp
 CompileCpp = 1
-Folder = 源文件/parser
+Folder = 源文件/module
 Compile = 1
 Link = 1
 Priority = 1000
 OverrideBuildCmd = 0
 BuildCmd = 
 FileEncoding = PROJECT
-RealEncoding = UTF-8
+RealEncoding = ASCII
 
 
-[Unit13]
-FileName = parser/TopologyParser.cpp
-CompileCpp = 1
-Folder = 源文件/parser
-Compile = 1
-Link = 1
-Priority = 1000
-OverrideBuildCmd = 0
-BuildCmd = 
-FileEncoding = PROJECT
-RealEncoding = UTF-8
-
-
-[Unit14]
-FileName = parser/ParameterParser.h
-CompileCpp = 0
-Folder = 头文件/parser
-Compile = 0
-Link = 0
-Priority = 1000
-OverrideBuildCmd = 0
-BuildCmd = 
-FileEncoding = PROJECT
-RealEncoding = UTF-8
-
-
-[Unit15]
+[Unit6]
 FileName = parser/MainArgumentParser.h
 CompileCpp = 0
 Folder = 头文件/parser
@@ -258,12 +141,233 @@ FileEncoding = PROJECT
 RealEncoding = UTF-8
 
 
-[Unit16]
+[Unit7]
+FileName = parser/ParameterParser.cpp
+CompileCpp = 1
+Folder = 源文件/parser
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = UTF-8
+
+
+[Unit8]
 FileName = parser/NetworkParser.cpp
 CompileCpp = 1
 Folder = 源文件/parser
 Compile = 1
 Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = ASCII
+
+
+[Unit9]
+FileName = module/Network.cpp
+CompileCpp = 1
+Folder = 源文件/module
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = ASCII
+
+
+[Unit10]
+FileName = module/constant.h
+CompileCpp = 0
+Folder = 头文件/module
+Compile = 0
+Link = 0
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = UTF-8
+
+
+[Unit11]
+FileName = module/name.h
+CompileCpp = 0
+Folder = 头文件/module
+Compile = 0
+Link = 0
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = 
+
+
+[Unit12]
+FileName = module/Network.h
+CompileCpp = 0
+Folder = 头文件/module
+Compile = 0
+Link = 0
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = UTF-8
+
+
+[Unit13]
+FileName = parser/ParameterParser.h
+CompileCpp = 0
+Folder = 头文件/parser
+Compile = 0
+Link = 0
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = UTF-8
+
+
+[Unit14]
+FileName = parser/TopologyParser.h
+CompileCpp = 0
+Folder = 头文件/parser
+Compile = 0
+Link = 0
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = UTF-8
+
+
+[Unit15]
+FileName = main.cpp
+CompileCpp = 1
+Folder = 源文件
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = UTF-8
+
+
+[Unit16]
+FileName = module/Regulator.h
+CompileCpp = 0
+Folder = 头文件/module
+Compile = 0
+Link = 0
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = ASCII
+
+
+[Unit17]
+FileName = parser/TopologyParser.cpp
+CompileCpp = 1
+Folder = 源文件/parser
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = UTF-8
+
+
+[Unit18]
+FileName = binding/Python/PythonVectorParser.cpp
+CompileCpp = 1
+Folder = 源文件/binding/Python
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = ASCII
+
+
+[Unit19]
+FileName = binding/Python/TRaNS.cpp
+CompileCpp = 1
+Folder = 源文件/binding/Python
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = ASCII
+
+
+[Unit20]
+FileName = module/RegulatorFactory.h
+CompileCpp = 0
+Folder = 头文件/module
+Compile = 0
+Link = 0
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = ASCII
+
+
+[Unit21]
+FileName = parser/VariableParser.cpp
+CompileCpp = 1
+Folder = 源文件/parser
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = UTF-8
+
+
+[Unit22]
+FileName = parser/MainArgumentParser.cpp
+CompileCpp = 1
+Folder = 源文件/parser
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = UTF-8
+
+
+[Unit23]
+FileName = binding/Python/PythonNetworkWrapper.cpp
+CompileCpp = 1
+Folder = 源文件/binding/Python
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = ASCII
+
+
+[Unit24]
+FileName = binding/Python/PythonNetworkWrapper.h
+CompileCpp = 0
+Folder = 头文件/binding/Python
+Compile = 0
+Link = 0
 Priority = 1000
 OverrideBuildCmd = 0
 BuildCmd = 

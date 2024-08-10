@@ -1,8 +1,14 @@
 #include "Regulator.h"
+#include "name.h"
 #include <cmath>
 
 
-unsigned int Regulator::parameterCount()
+std::string Regulator::name() const
+{
+    return TRANS_NAME_REGULATOR;
+}
+
+unsigned int Regulator::parameterCount() const
 {
     return 0;
 }
@@ -15,7 +21,12 @@ double Regulator::operator()(const std::vector<double>& values) const
     return 0.0;
 }
 
-unsigned int ConstantRegulator::parameterCount()
+std::string ConstantRegulator::name() const
+{
+    return TRANS_NAME_REGULATOR_CONSTANT;
+}
+
+unsigned int ConstantRegulator::parameterCount() const
 {
     return 1;
 }
@@ -31,7 +42,12 @@ double ConstantRegulator::operator()(const std::vector<double>& values) const
     return constant;
 }
 
-unsigned int LinearRegulator::parameterCount()
+std::string LinearRegulator::name() const
+{
+    return TRANS_NAME_REGULATOR_LINEAR;
+}
+
+unsigned int LinearRegulator::parameterCount() const
 {
     return 2;
 }
@@ -49,7 +65,7 @@ double LinearRegulator::operator()(const std::vector<double>& values) const
     return intercept + values[0] * slope;
 }
 
-unsigned int Hill::parameterCount()
+unsigned int Hill::parameterCount() const
 {
     return 4;
 }
@@ -73,7 +89,7 @@ void Hill::setParameter(int index, double value)
     }
 }
 
-unsigned int Hill2::parameterCount()
+unsigned int Hill2::parameterCount() const
 {
     return 6;
 }
@@ -103,6 +119,11 @@ void Hill2::setParameter(int index, double value)
     }
 }
 
+std::string HillA::name() const
+{
+    return TRANS_NAME_REGULATOR_HILLA;
+}
+
 double HillA::operator()(const std::vector<double>& values) const
 {
     if (values[0] > 0)
@@ -111,9 +132,19 @@ double HillA::operator()(const std::vector<double>& values) const
         return min;
 }
 
+std::string HillR::name() const
+{
+    return TRANS_NAME_REGULATOR_HILLR;
+}
+
 double HillR::operator()(const std::vector<double>& values) const
 {
     return min + max / (1.0 + std::pow(values[0] / K, n));
+}
+
+std::string HillAR::name() const
+{
+    return TRANS_NAME_REGULATOR_HILLAR;
 }
 
 double HillAR::operator()(const std::vector<double>& values) const
@@ -121,6 +152,11 @@ double HillAR::operator()(const std::vector<double>& values) const
     double A = values[0] > 0 ? std::pow(values[0] / K1, n1) : 0;
     double R = values[1] > 0 ? std::pow(values[1] / K2, n2) : 0;
     return min + max * A / (1.0 + A + R);
+}
+
+std::string HillRR::name() const
+{
+    return TRANS_NAME_REGULATOR_HILLRR;
 }
 
 double HillRR::operator()(const std::vector<double>& values) const
