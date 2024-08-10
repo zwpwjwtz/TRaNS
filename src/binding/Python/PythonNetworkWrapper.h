@@ -11,8 +11,11 @@ public:
 
     static PyObject* setRegulationType(PyObject* self, PyObject* args);
     static PyObject* setRegulationParameter(PyObject* self, PyObject* args);
+    static PyObject* setRegulationNoise(PyObject* self, PyObject* args);
     static PyObject* removeRegulation(PyObject* self, PyObject* args);
 
+    static PyObject* setSeed(PyObject* self, PyObject* args);
+    
     static PyObject* evolve(PyObject* self, PyObject* args);
 };
 

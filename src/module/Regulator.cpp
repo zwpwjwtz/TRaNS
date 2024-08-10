@@ -3,6 +3,17 @@
 #include <cmath>
 
 
+Regulator::Regulator()
+{
+    noise = nullptr;
+}
+
+Regulator::~Regulator()
+{
+    if (noise)
+        delete noise;
+}
+
 std::string Regulator::name() const
 {
     return TRANS_NAME_REGULATOR;
@@ -16,9 +27,26 @@ unsigned int Regulator::parameterCount() const
 void Regulator::setParameter(int index, double value)
 {}
 
+void Regulator::setNoise(NoiseGenerator* noise)
+{
+    if (this->noise)
+        delete this->noise;
+    this->noise = noise;
+}
+
+void Regulator::setSeed(int seed)
+{
+    noise->setSeed(seed);
+}
+
 double Regulator::operator()(const std::vector<double>& values) const
 {
-    return 0.0;
+    return addNoise(0.0);
+}
+
+double Regulator::addNoise(double value) const
+{
+    return noise ? std::max(noise->addNoise(value), 0.0) : value;
 }
 
 std::string ConstantRegulator::name() const
@@ -39,7 +67,7 @@ void ConstantRegulator::setParameter(int index, double value)
 
 double ConstantRegulator::operator()(const std::vector<double>& values) const
 {
-    return constant;
+    return addNoise(constant);
 }
 
 std::string LinearRegulator::name() const
@@ -62,7 +90,7 @@ void LinearRegulator::setParameter(int index, double value)
 
 double LinearRegulator::operator()(const std::vector<double>& values) const
 {
-    return intercept + values[0] * slope;
+    return addNoise(intercept + values[0] * slope);
 }
 
 unsigned int Hill::parameterCount() const
@@ -127,9 +155,9 @@ std::string HillA::name() const
 double HillA::operator()(const std::vector<double>& values) const
 {
     if (values[0] > 0)
-        return min + max / (1.0 + std::pow(K / values[0], n));
+        return addNoise(min + max / (1.0 + std::pow(K / values[0], n)));
     else
-        return min;
+        return addNoise(min);
 }
 
 std::string HillR::name() const
@@ -139,7 +167,7 @@ std::string HillR::name() const
 
 double HillR::operator()(const std::vector<double>& values) const
 {
-    return min + max / (1.0 + std::pow(values[0] / K, n));
+    return addNoise(min + max / (1.0 + std::pow(values[0] / K, n)));
 }
 
 std::string HillAR::name() const
@@ -151,7 +179,7 @@ double HillAR::operator()(const std::vector<double>& values) const
 {
     double A = values[0] > 0 ? std::pow(values[0] / K1, n1) : 0;
     double R = values[1] > 0 ? std::pow(values[1] / K2, n2) : 0;
-    return min + max * A / (1.0 + A + R);
+    return addNoise(min + max * A / (1.0 + A + R));
 }
 
 std::string HillRR::name() const
@@ -163,6 +191,6 @@ double HillRR::operator()(const std::vector<double>& values) const
 {
     double R1 = values[0] > 0 ? std::pow(values[0] / K1, n1) : 0;
     double R2 = values[1] > 0 ? std::pow(values[1] / K2, n2) : 0;
-    return min + max / (1.0 + R1 + R2);
+    return addNoise(min + max / (1.0 + R1 + R2));
 }
 

@@ -91,6 +91,26 @@ PythonNetworkWrapper::setRegulationParameter(PyObject* self, PyObject* args)
 }
 
 PyObject* 
+PythonNetworkWrapper::setRegulationNoise(PyObject* self, PyObject* args)
+{
+    unsigned long regulatorID;
+    double relativeNoise, minNoise;
+    if (!PyArg_ParseTuple(args, "kdd", 
+                          &regulatorID, &relativeNoise, &minNoise))
+        return nullptr;
+    
+    Regulator* regulator = reinterpret_cast<Regulator*>(regulatorID);
+    if (regulator && relativeNoise >= 0 && minNoise >= 0)
+    {
+        GaussianNoiseGenerator* noise = 
+                                    new GaussianNoiseGenerator(relativeNoise);
+        noise->setMinNoise(minNoise);
+        regulator->setNoise(noise);
+    }
+    return Py_BuildValue("");
+}
+
+PyObject* 
 PythonNetworkWrapper::removeRegulation(PyObject* self, PyObject* args)
 {
     unsigned long networkID, regulatorID;
@@ -111,6 +131,30 @@ PythonNetworkWrapper::removeRegulation(PyObject* self, PyObject* args)
             {
                 network->removeRegulation(j->first, i);
                 break;
+            }
+        }
+    }
+    return Py_BuildValue("");
+}
+
+PyObject* PythonNetworkWrapper::setSeed(PyObject* self, PyObject* args)
+{
+    unsigned long networkID;
+    unsigned long seed;
+    if (!PyArg_ParseTuple(args, "kk", &networkID, &seed))
+        return nullptr;
+    
+    Network* network = reinterpret_cast<Network*>(networkID);
+    if (network)
+    {
+        int count = 0;
+        for (size_t i=0; i<network->regulations.size(); i++)
+        {
+            for (auto j=network->regulations[i].cbegin(); 
+                j!=network->regulations[i].cend(); j++)
+            {
+                const_cast<Regulator*>(j->second)->setSeed(seed + count);
+                count += 1;
             }
         }
     }

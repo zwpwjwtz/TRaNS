@@ -21,13 +21,22 @@ static PyMethodDef TRANS_python_methods[] =
     {"setRegulationParameter", 
      PythonNetworkWrapper::setRegulationParameter, 
      METH_VARARGS, 
-     "Set the parameters of regulation between source nodes and a target node "
-     "in a network."}, 
+     "Set the parameters of a regulation."}, 
+    
+    {"setRegulationNoise", 
+     PythonNetworkWrapper::setRegulationNoise, 
+     METH_VARARGS, 
+     "Set the relative noise level and the minimum noise of a regulation."}, 
     
     {"removeRegulation", 
      PythonNetworkWrapper::removeRegulation, 
      METH_VARARGS, 
      "Remove a regulation from a network."}, 
+    
+    {"setSeed", 
+     PythonNetworkWrapper::setSeed, 
+     METH_VARARGS, 
+     "Set the seed of random number generators for generating noise."},
     
     {"evolveNetwork", 
      PythonNetworkWrapper::evolve, 

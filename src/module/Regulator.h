@@ -1,6 +1,7 @@
 #ifndef REGULATOR_H
 #define REGULATOR_H
 
+#include "NoiseGenerator.h"
 #include <vector>
 #include <string>
 
@@ -8,11 +9,18 @@
 class Regulator
 {
 public:
-    virtual ~Regulator() {};
+    Regulator();
+    virtual ~Regulator();
     virtual std::string name() const;
     virtual unsigned int parameterCount() const;
     virtual void setParameter(int index, double value);
+    virtual void setNoise(NoiseGenerator* noise);
+    virtual void setSeed(int seed = -1);
     virtual double operator()(const std::vector<double>& values) const;
+    
+protected:
+    NoiseGenerator* noise;
+    virtual double addNoise(double value) const;
 };
 
 class ConstantRegulator : public Regulator
