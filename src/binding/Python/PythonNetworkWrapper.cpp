@@ -27,6 +27,15 @@ PyObject* PythonNetworkWrapper::destroy(PyObject* self, PyObject* args)
 }
 
 PyObject* 
+PythonNetworkWrapper::countRegulationParameter(PyObject* self, PyObject* args)
+{
+    char* regulation; 
+    if (!PyArg_ParseTuple(args, "s", &regulation))
+        return nullptr;
+    return PyLong_FromLong(RegulatorFactory::countParameter(regulation));
+}
+
+PyObject* 
 PythonNetworkWrapper::setRegulationType(PyObject* self, PyObject* args)
 {
     unsigned long networkID;

@@ -12,6 +12,11 @@ static PyMethodDef TRANS_python_methods[] =
      PythonNetworkWrapper::destroy, METH_VARARGS, 
      "Delete an existing Network object."}, 
     
+    {"countRegulationParameter", 
+     PythonNetworkWrapper::countRegulationParameter, 
+     METH_VARARGS, 
+     "Get the total number of parameters required by a type of regulation."}, 
+    
     {"setRegulationType", 
      PythonNetworkWrapper::setRegulationType, 
      METH_VARARGS, 

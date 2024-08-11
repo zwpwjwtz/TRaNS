@@ -9,6 +9,7 @@ public:
     static PyObject* create(PyObject* self, PyObject* args);
     static PyObject* destroy(PyObject* self, PyObject* args);
 
+    static PyObject* countRegulationParameter(PyObject* self, PyObject* args);
     static PyObject* setRegulationType(PyObject* self, PyObject* args);
     static PyObject* setRegulationParameter(PyObject* self, PyObject* args);
     static PyObject* setRegulationNoise(PyObject* self, PyObject* args);

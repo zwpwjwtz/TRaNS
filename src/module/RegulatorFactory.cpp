@@ -2,6 +2,23 @@
 #include "name.h"
 
 
+int RegulatorFactory::countParameter(const std::string& name)
+{
+    if (name == TRANS_NAME_REGULATOR_CONSTANT)
+        return 1;
+    if (name == TRANS_NAME_REGULATOR_LINEAR)
+        return 2;
+    if (name == TRANS_NAME_REGULATOR_HILLA)
+        return 4;
+    if (name == TRANS_NAME_REGULATOR_HILLR)
+        return 4;
+    if (name == TRANS_NAME_REGULATOR_HILLAR)
+        return 6;
+    if (name == TRANS_NAME_REGULATOR_HILLRR)
+        return 6;
+    return 0;
+}
+
 Regulator* RegulatorFactory::createFromName(const std::string& name)
 {
     if (name == TRANS_NAME_REGULATOR_CONSTANT)
