@@ -84,6 +84,22 @@ PyObject*
 PythonNetworkWrapper::setRegulationParameter(PyObject* self, PyObject* args)
 {
     unsigned long regulatorID;
+    int parameterIndex;
+    double parameter;
+    if (!PyArg_ParseTuple(args, "kid", 
+                          &regulatorID, &parameterIndex, &parameter))
+        return nullptr;
+    
+    Regulator* regulator = reinterpret_cast<Regulator*>(regulatorID);
+    if (regulator)
+        regulator->setParameter(parameterIndex, parameter);
+    return Py_BuildValue("");
+}
+
+PyObject* 
+PythonNetworkWrapper::setRegulationParameters(PyObject* self, PyObject* args)
+{
+    unsigned long regulatorID;
     PyObject* parameterList;
     if (!PyArg_ParseTuple(args, "kO", &regulatorID, &parameterList))
         return nullptr;

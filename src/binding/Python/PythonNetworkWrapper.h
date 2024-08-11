@@ -12,6 +12,7 @@ public:
     static PyObject* countRegulationParameter(PyObject* self, PyObject* args);
     static PyObject* setRegulationType(PyObject* self, PyObject* args);
     static PyObject* setRegulationParameter(PyObject* self, PyObject* args);
+    static PyObject* setRegulationParameters(PyObject* self, PyObject* args);
     static PyObject* setRegulationNoise(PyObject* self, PyObject* args);
     static PyObject* removeRegulation(PyObject* self, PyObject* args);
 

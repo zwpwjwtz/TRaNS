@@ -26,7 +26,12 @@ static PyMethodDef TRANS_python_methods[] =
     {"setRegulationParameter", 
      PythonNetworkWrapper::setRegulationParameter, 
      METH_VARARGS, 
-     "Set the parameters of a regulation."}, 
+     "Set a parameter of a regulation."}, 
+    
+    {"setRegulationParameters", 
+     PythonNetworkWrapper::setRegulationParameters, 
+     METH_VARARGS, 
+     "Set all parameters of a regulation."}, 
     
     {"setRegulationNoise", 
      PythonNetworkWrapper::setRegulationNoise, 
