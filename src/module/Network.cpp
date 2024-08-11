@@ -50,7 +50,7 @@ std::vector<double> Network::evolve(const std::vector<double>& values,
     std::vector<double> results(values);
     
     size_t i;
-    double currentTime;
+    double currentTime = 0;
     double maxRate;
     while (currentTime < time)
     {
