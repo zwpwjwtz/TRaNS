@@ -8,5 +8,6 @@
 #define TRANS_NAME_REGULATOR_HILLR         "HillR"
 #define TRANS_NAME_REGULATOR_HILLAR        "HillAR"
 #define TRANS_NAME_REGULATOR_HILLRR        "HillRR"
+#define TRANS_NAME_REGULATOR_HILLARC       "HillARc"
 
 #endif

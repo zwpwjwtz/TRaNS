@@ -194,3 +194,33 @@ double HillRR::operator()(const std::vector<double>& values) const
     return addNoise(min + max / (1.0 + R1 + R2));
 }
 
+unsigned int Hill2c::parameterCount() const
+{
+    return 7;
+}
+
+void Hill2c::setParameter(int index, double value)
+{
+    switch (index)
+    {
+        case 6:
+            correction = value;
+            break;
+        default:
+            this->Hill2::setParameter(index, value);
+    }
+}
+
+std::string HillARc::name() const
+{
+    return TRANS_NAME_REGULATOR_HILLARC;
+}
+
+double HillARc::operator()(const std::vector<double>& values) const
+{
+    double A = values[0] > 0 ? std::pow(values[0] / K1, n1) : 0;
+    double R = values[1] > 0 ? std::pow(values[1] / K2, n2) : 0;
+    return addNoise(min + max * A * (1.0 + 1.0 / correction) / 
+                    (1.0 + A + (1.0 + correction) * R));
+}
+

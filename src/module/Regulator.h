@@ -91,5 +91,21 @@ public:
     double operator()(const std::vector<double>& values) const;
 };
 
+class Hill2c : public Hill2
+{
+public:
+    double correction;
+    
+    unsigned int parameterCount() const;
+    void setParameter(int index, double value);
+};
+
+class HillARc : public Hill2c
+{
+public:
+    std::string name() const;
+    double operator()(const std::vector<double>& values) const;
+};
+
 #endif
 

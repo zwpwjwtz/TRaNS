@@ -16,6 +16,8 @@ int RegulatorFactory::countParameter(const std::string& name)
         return 6;
     if (name == TRANS_NAME_REGULATOR_HILLRR)
         return 6;
+    if (name == TRANS_NAME_REGULATOR_HILLARC)
+        return 7;
     return 0;
 }
 
@@ -33,6 +35,8 @@ Regulator* RegulatorFactory::createFromName(const std::string& name)
         return new HillAR;
     if (name == TRANS_NAME_REGULATOR_HILLRR)
         return new HillRR;
+    if (name == TRANS_NAME_REGULATOR_HILLARC)
+        return new HillARc;
     return nullptr;
 }
 
