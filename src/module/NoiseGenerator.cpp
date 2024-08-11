@@ -16,37 +16,39 @@ void NoiseGenerator::setSeed(int seed)
     randomGenerator.seed(seed == -1 ? std::random_device()() : seed);
 }
 
-GaussianNoiseGenerator::GaussianNoiseGenerator(double stdev)
+GaussianNoiseGenerator::GaussianNoiseGenerator(double minNoise, 
+                                               double relativeNoise) : 
+    distribution1(0, minNoise), distribution2(0, relativeNoise)
 {
-    distribution = new std::normal_distribution<double>(0, stdev);
-}
-
-GaussianNoiseGenerator::~GaussianNoiseGenerator()
-{
-    delete distribution;
+    this->minNoise = minNoise;
+    this->relativeNoise = relativeNoise;
 }
 
 double GaussianNoiseGenerator::addNoise(double value)
 {
-    return value + std::max(std::abs(value * (*distribution)(randomGenerator)),
-                            minNoise);
+    if (value * relativeNoise <= minNoise)
+        return value + distribution1(randomGenerator);
+    return value * (1.0 + distribution2(randomGenerator));
 }
 
 void GaussianNoiseGenerator::setMinNoise(double minNoise)
 {
-    this->minNoise = minNoise >= 0 ? minNoise : 0;
+    if (minNoise < 0)
+        minNoise = 0;
+    this->minNoise = minNoise;
+    distribution1 = std::normal_distribution<double>(0, minNoise);
 }
 
 void GaussianNoiseGenerator::setRelativeNoise(double relativeNoise)
 {
     this->relativeNoise = relativeNoise;
-    delete distribution;
-    distribution = new std::normal_distribution<double>(0, relativeNoise);
+    distribution2 = std::normal_distribution<double>(0, relativeNoise);
 }
 
 void GaussianNoiseGenerator::setSeed(int seed)
 {
     this->NoiseGenerator::setSeed(seed);
-    distribution->reset();
+    distribution1.reset();
+    distribution2.reset();
 }
 

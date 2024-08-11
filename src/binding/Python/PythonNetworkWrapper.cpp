@@ -128,8 +128,7 @@ PythonNetworkWrapper::setRegulationNoise(PyObject* self, PyObject* args)
     if (regulator && relativeNoise >= 0 && minNoise >= 0)
     {
         GaussianNoiseGenerator* noise = 
-                                    new GaussianNoiseGenerator(relativeNoise);
-        noise->setMinNoise(minNoise);
+                        new GaussianNoiseGenerator(minNoise, relativeNoise);
         regulator->setNoise(noise);
     }
     return Py_BuildValue("");
