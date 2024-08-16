@@ -205,9 +205,9 @@ PyObject* PythonNetworkWrapper::evolve(PyObject* self, PyObject* args)
         initialValues[i] = values[i];
     std::vector<double> targets = network->evolve(initialValues, time);
     
-    PyObject* result = PyList_New(0);
+    PyObject* result = PyList_New(nodeCount);
     for (i=0; i<nodeCount; i++)
-        PyList_Append(result, PyFloat_FromDouble(targets[i]));
+        PyList_SET_ITEM(result, i, PyFloat_FromDouble(targets[i]));
     return result;
 }
 
@@ -234,13 +234,13 @@ PyObject* PythonNetworkWrapper::evolveMultiple(PyObject* self, PyObject* args)
     std::vector<std::vector<double>> targets = 
                 network->evolveMultiple(initialValues, time, trajectoryCount);
     
-    PyObject* result = PyList_New(0);
+    PyObject* result = PyList_New(trajectoryCount);
     for (i=0; i<trajectoryCount; i++)
     {
-        PyObject* tempList = PyList_New(0);
+        PyObject* tempList = PyList_New(nodeCount);
         for (j=0; j<nodeCount; j++)
-            PyList_Append(tempList, PyFloat_FromDouble(targets[i][j]));
-        PyList_Append(result, tempList);
+            PyList_SET_ITEM(tempList, j, PyFloat_FromDouble(targets[i][j]));
+        PyList_SET_ITEM(result, i, tempList);
     }
     return result;
 }
