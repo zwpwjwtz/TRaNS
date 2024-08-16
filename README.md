@@ -2,4 +2,4 @@
 
 ## License
 
-The project is licensed under the [GNU GPLv3](./LICENSE).
+The project is licensed under the [GNU LGPLv3](./LICENSE).
