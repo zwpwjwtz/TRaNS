@@ -28,7 +28,7 @@ public:
     void setSeed(int seed = -1);
 
 private:
-    std::normal_distribution<double> distribution1, distribution2;
+    std::normal_distribution<double> distribution;
 };
 
 #endif
