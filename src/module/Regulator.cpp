@@ -10,7 +10,7 @@ Regulator::Regulator()
 
 Regulator::~Regulator()
 {
-    if (noise)
+    if (noise != nullptr)
         delete noise;
 }
 
@@ -29,14 +29,15 @@ void Regulator::setParameter(int index, double value)
 
 void Regulator::setNoise(NoiseGenerator* noise)
 {
-    if (this->noise)
+    if (this->noise != nullptr)
         delete this->noise;
     this->noise = noise;
 }
 
 void Regulator::setSeed(int seed)
 {
-    noise->setSeed(seed);
+    if (noise != nullptr)
+        noise->setSeed(seed);
 }
 
 double Regulator::operator()(const std::vector<double>& values) const
@@ -46,7 +47,7 @@ double Regulator::operator()(const std::vector<double>& values) const
 
 double Regulator::addNoise(double value) const
 {
-    return noise ? std::max(noise->addNoise(value), 0.0) : value;
+    return noise != nullptr ? std::max(noise->addNoise(value), 0.0) : value;
 }
 
 std::string ConstantRegulator::name() const
